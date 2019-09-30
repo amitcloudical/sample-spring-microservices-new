@@ -1,0 +1,36 @@
+version: '3.7'
+
+configs:
+  apm-server.yml:
+    external:
+      name: apm-server.yml
+
+services:
+  apm-server:
+    image: elastic/apm-server:7.3.2
+    command: ["--strict.perms=false"]
+    configs:
+      - source: apm-server.yml
+        target: /usr/share/apm-server/apm-server.yml
+    # Config can be set through env or config file
+#    environment:
+#      - output.elasticsearch.hosts=["elasticsearch:9200"]
+#      - output.elasticsearch.protocol=http
+#      - output.elasticsearch.username=elastic
+#      - output.elasticsearch.password=changeme
+#      - apm-server.kibana.host=http://kibana:5601
+#      - apm-server.kibana.enabled=true
+#      - apm-server.kibana.username=kibana
+#      - apm-server.kibana.password=changeme
+    networks:
+      - somenetwork
+    depends_on:
+      - elasticsearch
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 15s  
+
+networks:
+  somenetwork:
