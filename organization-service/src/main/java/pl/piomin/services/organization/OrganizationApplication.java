@@ -14,6 +14,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import co.elastic.apm.attach.ElasticApmAttacher;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -22,6 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class OrganizationApplication {
 
 	public static void main(String[] args) {
+		ElasticApmAttacher.attach();
 		SpringApplication.run(OrganizationApplication.class, args);
 	}
 

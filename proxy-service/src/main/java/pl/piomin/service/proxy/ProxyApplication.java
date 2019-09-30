@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import co.elastic.apm.attach.ElasticApmAttacher;
 
 @SpringBootApplication
 @EnableZuulProxy
@@ -12,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ProxyApplication {
 
 	public static void main(String[] args) {
+		ElasticApmAttacher.attach();
 		SpringApplication.run(ProxyApplication.class, args);
 	}
 	
